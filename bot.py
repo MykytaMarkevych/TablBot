@@ -1,27 +1,26 @@
 # -*- coding: utf-8 -*-
 from config import *
 import telebot
-"""import utils
+import utils
 from SQLighter import SQLighter
 import random
 import os
 from flask import Flask, request
-import datetime"""
+import datetime
 
 
 bot = telebot.TeleBot(token)
-bot.polling(none_stop=True, interval=0)
-"""
+
 server = Flask(__name__)
 now = datetime.datetime.now
 
 
-class randomrow:
+"""class randomrow:
     def __init__(self,rownum):
         self.rownum = rownum
     def rand(self):
         return random.randint(1,201) #жуткий костыль
-
+"""
 @server.route('/' + token, methods=['POST'])
 def getMessage():
     bot.process_new_updates([telebot.types.Update.de_json(request.stream.read().decode("utf-8"))])
@@ -30,10 +29,10 @@ def getMessage():
 @server.route("/")
 def webhook():
     bot.remove_webhook()
-    bot.set_webhook(url='https://enigmatic-river-40567.herokuapp.com/' + token)
+    bot.set_webhook(url='https://polar-journey-94573.herokuapp.com/' + token)
     return "?", 200 
     
-@bot.message_handler(commands=['start'])
+"""@bot.message_handler(commands=['start'])
 def start(message):
     user_markup = telebot.types.ReplyKeyboardMarkup(resize_keyboard=True)
     user_markup.row('Почати')
@@ -69,13 +68,10 @@ def check_answer(message):
         else:
             bot.send_message(message.chat.id, "Ні, правильна відповідь: %s. Далі - /test" %answer, reply_markup=keyboard_hider)
         utils.finish_user_game(message.chat.id)
-          
+ """         
 if __name__ == '__main__':
-    func()
-    
     server.run(host="0.0.0.0", port=os.environ.get('PORT', 80)) 
-    utils.count_rows() 
-    random.seed() """
+
        
     
     
