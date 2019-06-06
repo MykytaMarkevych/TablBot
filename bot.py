@@ -49,12 +49,13 @@ def game(message):
 """
 @bot.message_handler(content_types=['text'])
 def get_text_messages(message):
-    if message.text == "Привет":
-        bot.send_message(message.from_user.id, "Привет, чем я могу тебе помочь?")
+    if message.text == "/tel":
+        bot.send_message(message.from_user.id, "Введи номер телефона")
     elif message.text == "/help":
-        bot.send_message(message.from_user.id, "Напиши привет")
+        bot.send_message(message.from_user.id, "Это поиск в табличке людей. /tel - поиск по номеру телефона")
     else:
-        bot.send_message(message.from_user.id, "Я тебя не понимаю. Напиши /help.")
+        t = message.text;
+        bot.send_message(message.from_user.id, "Выполнить поиск по этому телефон - %s" %t)
 """
 @bot.message_handler(func=lambda message: True, content_types=['text'])
 def check_answer(message):
