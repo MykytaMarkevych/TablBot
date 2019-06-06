@@ -56,6 +56,9 @@ def get_text_messages(message):
     else:
         t = message.text;
         bot.send_message(message.from_user.id, "Выполнить поиск по этому телефон - %s" %t)
+        db_worker = SQLighter(database_name)
+        rows = db_worker.select_single(t)
+        bot.send_message(message.chat.id, rows)
 """
 @bot.message_handler(func=lambda message: True, content_types=['text'])
 def check_answer(message):
