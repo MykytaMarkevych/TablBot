@@ -1,4 +1,4 @@
 # -*- coding: utf-8 -*-
-token = '767869555:AAFlyzlZkY78ewUOIvlb15FWJLZCVfPFB9A'
-database_name = 'questions.db'
+token = '683269749:AAGqg4ST4arlYUOt9Cs5xF2Hs9Li3oxG1yM'
+database_name = 'tabl.db'
 shelve_name = 'shelve.db'

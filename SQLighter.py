@@ -13,10 +13,10 @@ class SQLighter:
         with self.connection:
             return self.cursor.execute('SELECT * FROM questions').fetchall()
 
-    def select_single(self, rownum):
-        """получаем одну строку с номером rownum"""
+    def select_single(self, answer):
+        """попытка выбрать все, что с таким телефоном"""
         with self.connection:
-            return self.cursor.execute('SELECT * FROM questions WHERE id = ?', (rownum,)).fetchall()[0]
+            return self.cursor.execute('SELECT * FROM questions WHERE tel = ?', (answer,), multi=true)
 
     def count_rows(self):
         """считаем количество строк"""

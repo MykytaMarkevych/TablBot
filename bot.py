@@ -1,16 +1,20 @@
 # -*- coding: utf-8 -*-
 from config import *
 import telebot
-import utils
+"""import utils
 from SQLighter import SQLighter
 import random
 import os
 from flask import Flask, request
-import datetime
+import datetime"""
+
 
 bot = telebot.TeleBot(token)
+bot.polling(none_stop=True, interval=0)
+"""
 server = Flask(__name__)
 now = datetime.datetime.now
+
 
 class randomrow:
     def __init__(self,rownum):
@@ -27,27 +31,32 @@ def getMessage():
 def webhook():
     bot.remove_webhook()
     bot.set_webhook(url='https://enigmatic-river-40567.herokuapp.com/' + token)
-    return "?", 200
+    return "?", 200 
     
 @bot.message_handler(commands=['start'])
 def start(message):
     user_markup = telebot.types.ReplyKeyboardMarkup(resize_keyboard=True)
-    user_markup.row('Почати підготовку')
-    bot.send_message(message.chat.id, 'Щоб побачити наступне питання, оберіть команду /test')
-def remainder():
-    if now.hour == 18 and now.minute == 0 :
-        bot.send_message(message.chat.id, 'Щоб побачити наступне питання, оберіть команду /test')
+    user_markup.row('Почати')
+    bot.send_message(message.chat.id, 'Щоб ввести номер телефону оберіть /search')
 
-@bot.message_handler(commands=['test'])
+@bot.message_handler(commands=['search'])
 def game(message):
+    bot.send_message(message.chat.id, 'номер без 0')
+    answer = utils.get_answer_for_user(message.chat.id)
     db_worker = SQLighter(database_name)
-    c = randomrow(utils.get_rows_count())
-    row = db_worker.select_single(random.randint(1,201)) #еще один
-    markup = utils.generate_markup(row[2], row[3])
-    bot.send_message(message.chat.id, row[1], reply_markup=markup)
-    utils.set_user_game(message.chat.id, row[2])
+    rows = db_worker.select_single(answer) 
+    bot.send_message(message.chat.id, rows)
     db_worker.close()
-
+"""
+@bot.message_handler(content_types=['text'])
+def get_text_messages(message):
+    if message.text == "Привет":
+        bot.send_message(message.from_user.id, "Привет, чем я могу тебе помочь?")
+    elif message.text == "/help":
+        bot.send_message(message.from_user.id, "Напиши привет")
+    else:
+        bot.send_message(message.from_user.id, "Я тебя не понимаю. Напиши /help.")
+"""
 @bot.message_handler(func=lambda message: True, content_types=['text'])
 def check_answer(message):
     answer = utils.get_answer_for_user(message.chat.id)
@@ -60,11 +69,13 @@ def check_answer(message):
         else:
             bot.send_message(message.chat.id, "Ні, правильна відповідь: %s. Далі - /test" %answer, reply_markup=keyboard_hider)
         utils.finish_user_game(message.chat.id)
-            
+          
 if __name__ == '__main__':
-    server.run(host="0.0.0.0", port=os.environ.get('PORT', 80))
-    utils.count_rows()
-    random.seed()
+    func()
+    
+    server.run(host="0.0.0.0", port=os.environ.get('PORT', 80)) 
+    utils.count_rows() 
+    random.seed() """
        
     
     
