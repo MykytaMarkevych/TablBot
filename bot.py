@@ -40,9 +40,8 @@ def get_text_messages(message):
         with db_worker.connection:
             operation = 'SELECT * FROM questions WHERE tel = t'
             for result in cursor.execute(operation, multi=True):
-                if result.with_rows:
-                    bot.send_message(message.chat.id, "По этому телефону '{}':".format(result.statement))
-                    bot.send_message(message.chat.id, (result.fetchall())
+                bot.send_message(message.chat.id, "По этому телефону '{}':".format(result.statement))
+                bot.send_message(message.chat.id, (result.fetchall())
                 
         
 
