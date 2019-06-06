@@ -64,8 +64,7 @@ def get_text_messages(message):
                 if result.with_rows:
                     bot.send_message(message.chat.id, "По этому телефону '{}':".format(result.statement))
                     bot.send_message(message.chat.id, (result.fetchall())
-              else:
-                    bot.send_message(message.chat.id, "Number of rows affected by statement '{}': {}".format(result.statement, result.rowcount))
+                
         
 """
 @bot.message_handler(func=lambda message: True, content_types=['text'])
