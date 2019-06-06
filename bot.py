@@ -58,7 +58,15 @@ def get_text_messages(message):
         bot.send_message(message.from_user.id, "Выполнить поиск по этому телефон - %s" %t)
         db_worker = SQLighter(database_name)
         rows = db_worker.select_single(t)
-        bot.send_message(message.chat.id, rows)
+        with db_worker.connection:
+            operation = 'SELECT * FROM questions WHERE tel = t'
+            for result in cursor.execute(operation, multi=True):
+                if result.with_rows:
+                    bot.send_message(message.chat.id, "По этому телефону '{}':".format(result.statement))
+                    bot.send_message(message.chat.id, (result.fetchall())
+              else:
+                    bot.send_message(message.chat.id, "Number of rows affected by statement '{}': {}".format(result.statement, result.rowcount))
+        
 """
 @bot.message_handler(func=lambda message: True, content_types=['text'])
 def check_answer(message):
