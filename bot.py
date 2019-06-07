@@ -7,6 +7,7 @@ import random
 import os
 from flask import Flask, request
 import datetime
+import sqlite3
 
 
 bot = telebot.TeleBot(token)
