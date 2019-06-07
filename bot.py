@@ -34,15 +34,12 @@ def get_text_messages(message):
         bot.send_message(message.from_user.id, "Это поиск в табличке людей. /tel - поиск по номеру телефона")
     else:
         t = message.text;
-        """bot.send_message(message.from_user.id, "Выполнить поиск по этому телефон - %s" %t)"""
-        db_worker = SQLighter(database_name)
-        rows = db_worker.select_single(t)
-        """with db_worker.connection:
-            operation = 'SELECT * FROM questions WHERE tel = t'
-            for result in cursor.execute(operation, multi=True):
-                bot.send_message(message.chat.id, "По этому телефону '{}':".format(result.statement))
-                bot.send_message(message.chat.id, result.fetchall())"""
-        bot.send_message(message.chat.id, rows)
+        connection = sqlite3.connect("tabl.db")
+        cursor = connection.cursor()
+        sql_theme = 'SELECT * FROM tabl WHERE tel=?'
+        cursor.execute(sql_theme, (t,))
+        theme_notes = cursor.fetchall()
+        bot.send_message(message.from_user.id, theme_notes)
 
 if __name__ == "__main__":
     server.run(host="0.0.0.0", port=os.environ.get('PORT', 5000)) 
