@@ -41,7 +41,7 @@ def get_text_messages(message):
             operation = 'SELECT * FROM questions WHERE tel = t'
             for result in cursor.execute(operation, multi=True):
                 bot.send_message(message.chat.id, "По этому телефону '{}':".format(result.statement))
-                bot.send_message(message.chat.id, (result.fetchall())
+                bot.send_message(message.chat.id, result.fetchall())
 
 if __name__ == "__main__":
     server.run(host="0.0.0.0", port=os.environ.get('PORT', 5000)) 
